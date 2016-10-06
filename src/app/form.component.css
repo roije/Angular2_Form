@@ -1,0 +1,32 @@
+h2{
+  margin-bottom: 0px;
+  background-color: yellow;
+  height: 50px;
+  padding: 10px;
+}
+
+form {
+  background-color: white;
+  padding: 20px 40px 20px 40px;
+  border: 2px black dashed;
+  margin-bottom: 40px;
+}
+
+label{
+  font-size: 105%;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.error-message{
+  color: red;
+}
+
+.error{
+  border-color: red;
+}
+
+.btn {
+  float: right;
+  margin-top: 20px;
+}

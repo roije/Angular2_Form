@@ -3,6 +3,7 @@ h2{
   background-color: yellow;
   height: 50px;
   padding: 10px;
+  font-style: italic;
 }
 
 form {

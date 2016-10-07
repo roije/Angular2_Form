@@ -1,5 +1,14 @@
 # FormsV16
 
+## Branches
+
+### simple_form
+First week of creating this form. Has fields and validations.
+
+### form_with_routes
+The same form and validations, but with some extra routing.
+
+
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.16.
 
 ## Development server

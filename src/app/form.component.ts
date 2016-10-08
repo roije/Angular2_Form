@@ -8,6 +8,8 @@ import {
   FormGroup,
   Validators, FormControl, AbstractControl
 } from '@angular/forms';
+import {ActivatedRoute, Params} from "@angular/router";
+import {InternshipsService} from "./internships.service";
 
 //Branch form_with_routes
 
@@ -203,6 +205,7 @@ import {
     
     
         <!--Dirty: Control's value has changed-->
+        
         <div class="error-message" *ngIf="internshipForm.controls.companyvision.dirty && 
                                           !internshipForm.controls.companyvision.valid">
             Write at least 10 characters   
@@ -224,6 +227,7 @@ import {
     
         
         <!--Dirty: Control's value has changed-->
+        
         <div class="error-message" *ngIf="internshipForm.controls.companycompetence.dirty && 
                                           !internshipForm.controls.companycompetence.valid">
             Write at least 10 characters   
@@ -245,6 +249,7 @@ import {
       
       
           <!--Dirty: Control's value has changed-->
+          
           <div class="error-message" *ngIf="internshipForm.controls.studentcompetence.dirty && 
                                             !internshipForm.controls.studentcompetence.valid">
               Write at least 10 characters   
@@ -266,6 +271,7 @@ import {
                [formControl]="internshipForm.controls['collaborative']"> </textarea>
     
         <!--Dirty: Control's value has changed-->
+        
         <div class="error-message" *ngIf="internshipForm.controls.collaborative.dirty && 
                                           !internshipForm.controls.collaborative.valid">
             Write at least 10 characters   
@@ -289,35 +295,75 @@ import {
         
     </div>
     
+    
   </form>
 </div>
   `
 })
-export class InternshipEntryComponent
+export class InternshipEntryComponent implements OnInit
 {
-
+  selectedInternship : any;
   internshipForm: FormGroup;
 
-  constructor( fb: FormBuilder) {
-    this.internshipForm = fb.group(
-      {
-        'initials': ['', Validators.compose([Validators.required, MyValidators.getInitialsValidator()])],
-        'email': ['', Validators.compose([Validators.required, MyValidators.getEmailValidator()])],
-        'visitdate': ['', [
-          Validators.required,
-          Validators.pattern("[0-9]{2}\/[0-9]{2}\/[0-9]{2}")
-        ]],
-        'studentname': ['', Validators.required],
-        'internid' : ['', Validators.required],
-        'companyname' : ['', Validators.required],
-        'personmet' : ['', Validators.required],
-        'companyvision' : ['', Validators.minLength(10)],
-        'companycompetence' : ['', Validators.minLength(10)],
-        'studentcompetence' : ['', Validators.minLength(10)],
-        'collaborative' : ['', Validators.minLength(10)],
-        'othercomments' : ['']
+  ngOnInit(): void {
 
-      });
+    this.route.params.forEach((params: Params) =>
+    {
+      let id = +params['id']; // (+) converts string 'id' to a number
+      this.selectedInternship = this.internshipsService.getInternship(id);
+      console.log(this.selectedInternship);
+    });
+
+    if(this.selectedInternship === 'undefined') {
+      this.internshipForm = this.fb.group(
+        {
+          'initials': ['', Validators.compose([Validators.required, MyValidators.getInitialsValidator()])],
+           'email': ['', Validators.compose([Validators.required, MyValidators.getEmailValidator()])],
+           'visitdate': ['', [
+           Validators.required,
+           Validators.pattern("[0-9]{2}\/[0-9]{2}\/[0-9]{2}")
+           ]],
+           'studentname': ['', Validators.required],
+           'internid' : ['', Validators.required],
+           'companyname' : ['', Validators.required],
+           'personmet' : ['', Validators.required],
+           'companyvision' : ['', Validators.minLength(10)],
+           'companycompetence' : ['', Validators.minLength(10)],
+           'studentcompetence' : ['', Validators.minLength(10)],
+           'collaborative' : ['', Validators.minLength(10)],
+           'othercomments' : ['']
+
+
+        });
+    }
+    else {
+      this.internshipForm = this.fb.group(
+        {
+          'initials': [this.selectedInternship.initials, Validators.compose([Validators.required, MyValidators.getInitialsValidator()])],
+          'email': [this.selectedInternship.email, Validators.compose([Validators.required, MyValidators.getEmailValidator()])],
+          'visitdate': [this.selectedInternship.visitDate, [
+            Validators.required,
+            Validators.pattern("[0-9]{2}\/[0-9]{2}\/[0-9]{2}")
+          ]],
+          'studentname': [this.selectedInternship.nameOfStudent, Validators.required],
+          'internid' : [this.selectedInternship._id, Validators.required],
+          'companyname' : [this.selectedInternship.companyName, Validators.required],
+          'personmet' : [this.selectedInternship.namesOfPersons, Validators.required],
+          'companyvision' : [this.selectedInternship.companyVision, Validators.minLength(10)],
+          'companycompetence' : [this.selectedInternship.companyCompetenceNeed, Validators.minLength(10)],
+          'studentcompetence' : [this.selectedInternship.studentComptence, Validators.minLength(10)],
+          'collaborative' : [this.selectedInternship.collabOpportunities, Validators.minLength(10)],
+          'othercomments' : [this.selectedInternship.otherComments]
+
+        });
+    }
+
+
+  }
+
+
+  constructor(private  fb: FormBuilder, private route: ActivatedRoute, private internshipsService : InternshipsService) {
+
   }
 
   public onSubmit(form) {

@@ -5,19 +5,26 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import {InternshipEntryComponent} from "./form.component";
+import {InternshipsService} from "./internships.service";
+import {AboutComponent} from "./about.component";
+import {InternshipsComponent} from "./internships.component";
+import {routing} from "./app-routing.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    InternshipEntryComponent
+    InternshipEntryComponent,
+    AboutComponent,
+    InternshipsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule //I added this.
+    ReactiveFormsModule, //I added this.
+    routing
   ],
-  providers: [],
+  providers: [InternshipsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

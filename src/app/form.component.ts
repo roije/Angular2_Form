@@ -29,6 +29,7 @@ import {InternshipsService} from "./internships.service";
                id="initials"
                placeholder="e.g. 123john"
                class="form-control"
+               value="{{this.selectedInternship?.initials}}"
                [class.error]="!internshipForm.controls.initials.valid && internshipForm.controls.initials.touched && 
                               internshipForm.controls.initials.hasError('invalidChars')"
                [formControl]="internshipForm.controls['initials']">
@@ -58,6 +59,7 @@ import {InternshipsService} from "./internships.service";
                id="email"
                placeholder="e.g. john@john.com"
                class="form-control"
+               value="{{this.selectedInternship?.email}}"
                [class.error]="!internshipForm.controls.email.valid && internshipForm.controls.email.touched"
                [formControl]="internshipForm.controls['email']">
                      
@@ -81,6 +83,7 @@ import {InternshipsService} from "./internships.service";
                id="visitdate"
                placeholder="e.g. 01/01/16"
                class="form-control"
+               value="{{this.selectedInternship?.visitDate}}"
                [class.error]="!internshipForm.controls.visitdate.valid && internshipForm.controls.visitdate.touched || 
                 internshipForm.controls.visitdate.hasError('pattern')"
                [formControl]="internshipForm.controls['visitdate']">
@@ -106,6 +109,7 @@ import {InternshipsService} from "./internships.service";
                id="studentname"
                placeholder="e.g. John Doe"
                class="form-control"
+               value="{{this.selectedInternship?.nameOfStudent}}"
                [class.error]="!internshipForm.controls.studentname.valid && internshipForm.controls.studentname.touched"
                [formControl]="internshipForm.controls['studentname']">
                
@@ -130,6 +134,7 @@ import {InternshipsService} from "./internships.service";
              id="internid"
              placeholder="e.g. intern1234"
              class="form-control"
+             value="{{this.selectedInternship?._id}}"
              [class.error]="!internshipForm.controls.internid.valid && internshipForm.controls.internid.touched"
              [formControl]="internshipForm.controls['internid']">
              
@@ -153,6 +158,7 @@ import {InternshipsService} from "./internships.service";
                id="companyname"
                placeholder="e.g. Pied Piper"
                class="form-control"
+               value="{{this.selectedInternship?.companyName}}"
                [class.error]="!internshipForm.controls.companyname.valid && internshipForm.controls.companyname.touched"
                [formControl]="internshipForm.controls['companyname']">
                
@@ -176,6 +182,7 @@ import {InternshipsService} from "./internships.service";
                id="personmet"
                placeholder="e.g. Bob Larsen, Johanne Bech"
                class="form-control"
+               value="{{this.selectedInternship?.namesOfPersons}}"
                [class.error]="!internshipForm.controls.personmet.valid && internshipForm.controls.personmet.touched"
                [formControl]="internshipForm.controls['personmet']">
                
@@ -200,6 +207,7 @@ import {InternshipsService} from "./internships.service";
              id="companyvision"
              placeholder="Write something here with a minimum lenght of 10 characters...)"
              class="form-control"
+             value="{{this.selectedInternship?.companyVision}}"
              [class.error]="!internshipForm.controls.companyvision.valid"
              [formControl]="internshipForm.controls['companyvision']"> </textarea>
     
@@ -222,6 +230,7 @@ import {InternshipsService} from "./internships.service";
              id="companycompetence"
              placeholder="Write something here with a minimum lenght of 10 characters..."
              class="form-control"
+             value="{{this.selectedInternship?.companyCompetenceNeed}}"
              [class.error]="!internshipForm.controls.companycompetence.valid"
              [formControl]="internshipForm.controls['companycompetence']"> </textarea>
     
@@ -244,6 +253,7 @@ import {InternshipsService} from "./internships.service";
                id="studentcompetence"
                placeholder="Write something here with a minimum lenght of 10 characters..."
                class="form-control"
+               value="{{this.selectedInternship?.studentComptence}}"
                [class.error]="!internshipForm.controls.studentcompetence.valid"
                [formControl]="internshipForm.controls['studentcompetence']"> </textarea>
       
@@ -267,6 +277,7 @@ import {InternshipsService} from "./internships.service";
                id="collaborative"
                placeholder="Write something here with a minimum lenght of 10 characters..."
                class="form-control"
+               value="{{this.selectedInternship?.collabOpportunities}}"
                [class.error]="!internshipForm.controls.collaborative.valid"
                [formControl]="internshipForm.controls['collaborative']"> </textarea>
     
@@ -288,6 +299,7 @@ import {InternshipsService} from "./internships.service";
                id="othercomments"
                placeholder="Write something here..."
                class="form-control"
+               value="{{this.selectedInternship?.otherComments}}"
                [formControl]="internshipForm.controls['othercomments']"> </textarea>
         </div>
         
@@ -311,54 +323,28 @@ export class InternshipEntryComponent implements OnInit
     {
       let id = +params['id']; // (+) converts string 'id' to a number
       this.selectedInternship = this.internshipsService.getInternship(id);
-      console.log(this.selectedInternship);
     });
 
-    if(this.selectedInternship === 'undefined') {
-      this.internshipForm = this.fb.group(
-        {
-          'initials': ['', Validators.compose([Validators.required, MyValidators.getInitialsValidator()])],
-           'email': ['', Validators.compose([Validators.required, MyValidators.getEmailValidator()])],
-           'visitdate': ['', [
-           Validators.required,
-           Validators.pattern("[0-9]{2}\/[0-9]{2}\/[0-9]{2}")
-           ]],
-           'studentname': ['', Validators.required],
-           'internid' : ['', Validators.required],
-           'companyname' : ['', Validators.required],
-           'personmet' : ['', Validators.required],
-           'companyvision' : ['', Validators.minLength(10)],
-           'companycompetence' : ['', Validators.minLength(10)],
-           'studentcompetence' : ['', Validators.minLength(10)],
-           'collaborative' : ['', Validators.minLength(10)],
-           'othercomments' : ['']
+    this.internshipForm = this.fb.group(
+      {
+        'initials': ['', Validators.compose([Validators.required, MyValidators.getInitialsValidator()])],
+        'email': ['', Validators.compose([Validators.required, MyValidators.getEmailValidator()])],
+        'visitdate': ['', [
+          Validators.required,
+          Validators.pattern("[0-9]{2}\/[0-9]{2}\/[0-9]{2}")
+        ]],
+        'studentname': ['', Validators.required],
+        'internid' : ['', Validators.required],
+        'companyname' : ['', Validators.required],
+        'personmet' : ['', Validators.required],
+        'companyvision' : ['', Validators.minLength(10)],
+        'companycompetence' : ['', Validators.minLength(10)],
+        'studentcompetence' : ['', Validators.minLength(10)],
+        'collaborative' : ['', Validators.minLength(10)],
+        'othercomments' : ['']
 
 
-        });
-    }
-    else {
-      this.internshipForm = this.fb.group(
-        {
-          'initials': [this.selectedInternship.initials, Validators.compose([Validators.required, MyValidators.getInitialsValidator()])],
-          'email': [this.selectedInternship.email, Validators.compose([Validators.required, MyValidators.getEmailValidator()])],
-          'visitdate': [this.selectedInternship.visitDate, [
-            Validators.required,
-            Validators.pattern("[0-9]{2}\/[0-9]{2}\/[0-9]{2}")
-          ]],
-          'studentname': [this.selectedInternship.nameOfStudent, Validators.required],
-          'internid' : [this.selectedInternship._id, Validators.required],
-          'companyname' : [this.selectedInternship.companyName, Validators.required],
-          'personmet' : [this.selectedInternship.namesOfPersons, Validators.required],
-          'companyvision' : [this.selectedInternship.companyVision, Validators.minLength(10)],
-          'companycompetence' : [this.selectedInternship.companyCompetenceNeed, Validators.minLength(10)],
-          'studentcompetence' : [this.selectedInternship.studentComptence, Validators.minLength(10)],
-          'collaborative' : [this.selectedInternship.collabOpportunities, Validators.minLength(10)],
-          'othercomments' : [this.selectedInternship.otherComments]
-
-        });
-    }
-
-
+      });
   }
 
 

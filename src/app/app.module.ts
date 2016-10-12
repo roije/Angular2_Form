@@ -9,13 +9,15 @@ import {InternshipsService} from "./internships.service";
 import {AboutComponent} from "./about.component";
 import {InternshipsComponent} from "./internships.component";
 import {routing} from "./app-routing.module";
+import {HomeComponent} from "../home.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     InternshipEntryComponent,
     AboutComponent,
-    InternshipsComponent
+    InternshipsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

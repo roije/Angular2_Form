@@ -8,7 +8,7 @@ import {
   FormGroup,
   Validators, FormControl, AbstractControl
 } from '@angular/forms';
-import {ActivatedRoute, Params} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {InternshipsService} from "./internships.service";
 
 //Branch form_with_routes
@@ -17,10 +17,16 @@ import {InternshipsService} from "./internships.service";
   selector: 'internship-entry',
   styleUrls: ['form.component.css'],
   template: `
-<div class="container">
-  <h2 class="col-md-8">Internship Entry</h2>
-  <form [formGroup]="internshipForm" (ngSubmit)="onSubmit(internshipForm)" class="col-md-8">
+  <div class="container">
+       <button class="back-btn" (click)="goBack()">Back</button>
+  </div>
 
+<div class="container">
+  <!-- Back btn-->
+  <h2 class="col-md-8">Internship Entry</h2>
+ 
+  <form [formGroup]="internshipForm" (ngSubmit)="onSubmit(internshipForm)" class="col-md-8">
+     
     <div class="row" >
       <div class="form-group">
         <label for="initials">Your KEA initials</label>
@@ -306,8 +312,6 @@ import {InternshipsService} from "./internships.service";
         <button type="submit" class="btn btn-success">Submit</button>
         
     </div>
-    
-    
   </form>
 </div>
   `
@@ -348,9 +352,11 @@ export class InternshipEntryComponent implements OnInit
   }
 
 
-  constructor(private  fb: FormBuilder, private route: ActivatedRoute, private internshipsService : InternshipsService) {
-
-  }
+  constructor(
+    private  fb: FormBuilder,
+    private route: ActivatedRoute,
+    private internshipsService : InternshipsService,
+    private router: Router) {}
 
   public onSubmit(form) {
     if(form.valid) {
@@ -359,5 +365,9 @@ export class InternshipEntryComponent implements OnInit
     else {
       console.log("no its not. fix errors por favor")
     }
+  }
+
+  public goBack() {
+    this.router.navigate(['/internships'])
   }
 }

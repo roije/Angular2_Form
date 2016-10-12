@@ -4,6 +4,7 @@ h2{
   height: 50px;
   padding: 10px;
   font-style: italic;
+  display: block;
 }
 
 form {
@@ -29,5 +30,9 @@ label{
 
 .btn {
   float: right;
+  margin-top: 20px;
+}
+
+.back-btn{
   margin-top: 20px;
 }

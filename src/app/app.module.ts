@@ -10,6 +10,11 @@ import {AboutComponent} from "./about.component";
 import {InternshipsComponent} from "./internships.component";
 import {routing} from "./app-routing.module";
 import {HomeComponent} from "../home.component";
+import {AComponent} from "./a.component";
+import {BComponent} from "./b.component";
+import {AdminComponent} from "./admin.component";
+import {StudentsComponent} from "./students.component";
+import {UsersComponent} from "./users.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +22,12 @@ import {HomeComponent} from "../home.component";
     InternshipEntryComponent,
     AboutComponent,
     InternshipsComponent,
-    HomeComponent
+    HomeComponent,
+    AComponent,
+    BComponent,
+    AdminComponent,
+    StudentsComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

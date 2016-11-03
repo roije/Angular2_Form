@@ -6,7 +6,7 @@ import {Component} from "@angular/core/src/metadata/directives";
 @Component({
   selector: 'about',
   template: `
-    Hi am the about view
+    <p>Hi am the about view</p>
   `
 })
 

@@ -15,6 +15,11 @@ import {Router} from "@angular/router";
       {{internship.initials}}
     </div>
     <button routerLink="/internship">Create new internship</button>
+    <button routerLink="a">Goto A component</button>
+    <button routerLink="b">Goto B component</button>
+    
+    
+    <router-outlet></router-outlet>
   `,
   //: [InternshipsService]
 })

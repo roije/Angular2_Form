@@ -14,6 +14,7 @@ import {Router} from "@angular/router";
       <b>{{internship._id}}</b>
       {{internship.initials}}
     </div>
+    <!-- Backslash means go back one route-->
     <button routerLink="/internship">Create new internship</button>
     <button routerLink="a">Goto A component</button>
     <button routerLink="b">Goto B component</button>

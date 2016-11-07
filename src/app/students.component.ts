@@ -4,7 +4,26 @@
 import {Component} from "@angular/core/src/metadata/directives";
 @Component({
   selector: 'students-component',
-  template: ` <p>Student component</p>`
+  template: ` 
+    <div class="studentcomponent">
+      <h1>Student component</h1>
+      <button class="btn btn-success">Add</button>
+      <button class="btn btn-info">Edit</button>
+      <button class="btn btn-danger">Delete</button>
+    </div>
+    <style>
+      button{
+        margin-right: 5px;
+      }
+      
+      .studentcomponent{
+        background-color: white;
+        padding: 10px;
+        margin-top: 10px;
+      }
+    </style>
+  `
+
 })
 
 export class StudentsComponent{

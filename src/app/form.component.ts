@@ -325,8 +325,8 @@ export class InternshipEntryComponent implements OnInit
 
     this.route.params.forEach((params: Params) =>
     {
-      let id = +params['id']; // (+) converts string 'id' to a number
-      this.selectedInternship = this.internshipsService.getInternship(id);
+      //let id = +params['id']; // (+) converts string 'id' to a number
+      this.selectedInternship = this.internshipsService.getInternship(params['id']);
     });
 
     this.internshipForm = this.fb.group(
@@ -351,7 +351,6 @@ export class InternshipEntryComponent implements OnInit
       });
   }
 
-
   constructor(
     private  fb: FormBuilder,
     private route: ActivatedRoute,
@@ -360,12 +359,20 @@ export class InternshipEntryComponent implements OnInit
 
   public onSubmit(form) {
     if(form.valid) {
-      console.log("yes its valid")
+
+      var internship = {
+        initials: form.controls.initials.value,
+        email: form.controls.email.value
+      };
+
+      this.internshipsService.createInternship(internship).subscribe();
+
     }
     else {
       console.log("no its not. fix errors por favor")
     }
   }
+
 
   public goBack() {
     this.router.navigate(['/internships'])
